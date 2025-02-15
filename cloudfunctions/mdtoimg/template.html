@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap");
+      body {
+        font-family: "Noto Sans SC", serif;
+        padding: 10px;
+      }
+      .issue {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+      }
+      .issue .content {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 0 10px;
+      }
+      .answer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+      }
+      .answer .content {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="issue">
+      <div class="content">${htmlIssueContent}</div>
+    </div>
+    <div class="answer">
+      <div class="content">${htmlAnswerContent}</div>
+    </div>
+  </body>
+</html>

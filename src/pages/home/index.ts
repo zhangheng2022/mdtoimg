@@ -1,9 +1,17 @@
 import { definePage, ref } from "@vue-mini/core";
 
+interface CloudFunctionResult {
+  code: number;
+  message: string;
+  image?: string;
+}
+
 definePage(() => {
-  const issue = ref("12312312");
-  const answer = ref("12312312");
-  const nodes = ref("");
+  wx.cloud.init();
+
+  const issue = ref("");
+  const answer = ref("");
+  const imageUrl = ref("");
 
   function handleIssueChange(e: WechatMiniprogram.CustomEvent) {
     const { value } = e.detail;
@@ -18,36 +26,78 @@ definePage(() => {
   function handleClear() {
     issue.value = "";
     answer.value = "";
+    imageUrl.value = "";
   }
 
   const popupShow = ref(false);
 
   async function handleConvert() {
-    // popupShow.value = true;
-    wx.cloud.init();
-    const res = await wx.cloud.callFunction({
-      name: "mdtoimg", // 替换为你的云函数名称
-      data: {
-        markdownContent: issue.value,
-      },
+    if (!issue.value || !answer.value) {
+      wx.showToast({
+        title: "请输入问题或回答",
+        icon: "none",
+        duration: 2000,
+      });
+      return;
+    }
+    wx.showLoading({
+      title: "转换中...",
     });
-    console.log(res);
-    // nodes.value = issue.value;
+    const { result } = (await wx.cloud.callFunction({
+      name: "mdtoimg",
+      data: {
+        issueContent: issue.value,
+        answerContent: answer.value,
+      },
+    })) as unknown as { result: CloudFunctionResult };
+
+    wx.hideLoading();
+
+    if (!result || !result.image) {
+      wx.showToast({
+        title: "转换失败",
+        icon: "none",
+        duration: 2000,
+      });
+      return;
+    }
+    const { tempFilePath } = await wx.cloud.downloadFile({
+      fileID: result.image,
+    });
+    imageUrl.value = tempFilePath;
+    popupShow.value = true;
+  }
+
+  async function handleSave() {
+    await wx.saveImageToPhotosAlbum({
+      filePath: imageUrl.value,
+    });
+    wx.showToast({
+      title: "保存成功",
+      icon: "success",
+      duration: 2000,
+    });
   }
 
   function popupChange(visible: boolean) {
     popupShow.value = visible;
   }
 
+  function handleCancel() {
+    popupShow.value = false;
+  }
+
   return {
     issue,
     answer,
-    nodes,
+    imageUrl,
     popupShow,
     handleConvert,
     popupChange,
     handleIssueChange,
     handleAnswerChange,
     handleClear,
+    handleCancel,
+    handleSave,
   };
 });
