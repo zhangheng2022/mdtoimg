@@ -1,18 +1,10 @@
 {
-  "darkmode": true,
-  "themeLocation": "theme.json",
-  "pages": ["pages/home/index"],
+  "pages": ["pages/home/home"],
   "window": {
-    "navigationBarBackgroundColor": "@bgColor",
-    "navigationBarTextStyle": "@style",
     "navigationBarTitleText": "mdtoimg",
-    "backgroundColor": "@bgColor",
-    "backgroundColorTop": "@bgColor",
-    "backgroundColorBottom": "@bgColor"
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents",
-  "rendererOptions": {
-    "skyline": {}
-  }
+  "lazyCodeLoading": "requiredComponents"
 }

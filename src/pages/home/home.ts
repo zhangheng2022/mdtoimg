@@ -49,7 +49,7 @@ definePage(() => {
   async function handleConvert() {
     if (!issue.value && !answer.value) {
       wx.showToast({
-        title: "请输入问题或回答",
+        title: "请输入内容",
         icon: "none",
         duration: 2000,
       });
