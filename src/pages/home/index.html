@@ -1,0 +1,52 @@
+<view class="p-2">
+  <view class="rounded-md relative">
+    <view class="absolute top-2 right-2 z-10">
+      <t-button size="small" variant="outline">黏贴</t-button>
+    </view>
+    <t-textarea
+      value="{{issue}}"
+      t-class="h-40"
+      placeholder="在此黏贴问题..."
+      bordered="{{true}}"
+      disableDefaultPadding="{{true}}"
+      bind:change="handleIssueChange"
+    />
+  </view>
+  <view class="rounded-md relative mt-2">
+    <view class="absolute top-2 right-2 z-10">
+      <t-button size="small" variant="outline">黏贴</t-button>
+    </view>
+    <t-textarea
+      value="{{answer}}"
+      t-class="h-80"
+      placeholder="在此黏贴回答..."
+      bordered="{{true}}"
+      disableDefaultPadding="{{true}}"
+      bind:change="handleAnswerChange"
+    />
+  </view>
+  <view class="grid grid-cols-2 gap-x-2 mt-2">
+    <t-button block size="large" bindtap="handleClear">清空内容</t-button>
+    <t-button block theme="primary" size="large" bindtap="handleConvert"
+      >转换为图片</t-button
+    >
+  </view>
+</view>
+<t-popup
+  visible="{{popupShow}}"
+  close-on-overlay-click
+  placement="bottom"
+  bind:visible-change="popupChange"
+>
+  <view class="p-2">
+    <view class="rounded-md relative">
+      <view class="absolute top-2 right-2 z-10">
+        <t-button size="small" variant="outline">黏贴</t-button>
+      </view>
+      <block wx:if="{{nodes}}">
+        <rich-text nodes="{{nodes}}"></rich-text>
+      </block>
+    </view>
+    <view class="h-20"></view>
+  </view>
+</t-popup>

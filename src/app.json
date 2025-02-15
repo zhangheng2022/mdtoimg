@@ -1,0 +1,18 @@
+{
+  "darkmode": true,
+  "themeLocation": "theme.json",
+  "pages": ["pages/home/index"],
+  "window": {
+    "navigationBarBackgroundColor": "@bgColor",
+    "navigationBarTextStyle": "@style",
+    "navigationBarTitleText": "mdtoimg",
+    "backgroundColor": "@bgColor",
+    "backgroundColorTop": "@bgColor",
+    "backgroundColorBottom": "@bgColor"
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "rendererOptions": {
+    "skyline": {}
+  }
+}
