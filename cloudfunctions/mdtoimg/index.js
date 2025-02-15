@@ -3,7 +3,8 @@ const { ReadableStream } = require("web-streams-polyfill");
 const markdownIt = require("markdown-it");
 const puppeteer = require("puppeteer");
 const hljs = require("highlight.js");
-
+const fs = require("fs");
+const path = require("path");
 // "puppeteer": "^24.2.0",
 
 global.ReadableStream = ReadableStream;
@@ -71,15 +72,36 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
     deviceScaleFactor: 1,
   });
 
+  const monokaiSublimeCss = fs.readFileSync(path.join(__dirname, "./assets/styles/monokai-sublime.min.css"), "utf8");
   // 加载本地字体文件
-  await page.addStyleTag({
-    content: `
-        @font-face {
-          font-family: "思源黑体";
-          src: url("/assets/fonts/思源黑体SourceHanSansCN-Medium.ttf") format("opentype");
-        }
-      `,
-  });
+  const fontPath = path.join(__dirname, "./assets/fonts/思源黑体SourceHanSansCN-Medium.ttf");
+  console.log("Font path:", fontPath); // 打印字体文件路径
+
+  try {
+    const fontBase64 = fs.readFileSync(fontPath, { encoding: "base64" });
+    console.log("Font loaded successfully"); // 确认字体文件已成功读取
+
+    await page.addStyleTag({
+      content: `
+          @font-face {
+            font-family: "思源黑体";
+            src: url(data:font/ttf;base64,${fontBase64}) format("truetype");
+            font-display: block;
+          }
+          * {
+            font-family: "思源黑体" !important;
+          }
+        `,
+    });
+
+    // 等待字体加载完成并验证
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      console.log("Fonts loaded in browser:", [...document.fonts].map((f) => f.family).join(", "));
+    });
+  } catch (error) {
+    console.error("Font loading error:", error);
+  }
 
   const template = `
     <!doctype html>
@@ -88,10 +110,9 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/monokai-sublime.min.css">
         <style>
+          ${monokaiSublimeCss}
           body {
-            font-family: "思源黑体", serif;
             padding: 10px;
             box-sizing: border-box;
             border: 1px solid #ccc;
