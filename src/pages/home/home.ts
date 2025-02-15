@@ -66,8 +66,6 @@ definePage(() => {
       },
     })) as unknown as { result: CloudFunctionResult };
 
-    wx.hideLoading();
-
     if (!result || !result.image) {
       wx.showToast({
         title: "转换失败",
@@ -80,6 +78,8 @@ definePage(() => {
       fileID: result.image,
     });
     console.log("tempFilePath", tempFilePath);
+
+    wx.hideLoading();
     imageUrl.value = tempFilePath;
     popupShow.value = true;
   }
