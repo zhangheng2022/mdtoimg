@@ -4,6 +4,8 @@ const markdownIt = require("markdown-it");
 const puppeteer = require("puppeteer");
 const hljs = require("highlight.js");
 
+    // "puppeteer": "^24.2.0",
+
 global.ReadableStream = ReadableStream;
 
 cloud.init();

@@ -13,6 +13,21 @@ definePage(() => {
   const answer = ref("");
   const imageUrl = ref("");
 
+  function handleIssuePaste() {
+    wx.getClipboardData({
+      success: (res) => {
+        issue.value = res.data;
+      },
+    });
+  }
+
+  function handleAnswerPaste() {
+    wx.getClipboardData({
+      success: (res) => {
+        answer.value = res.data;
+      },
+    });
+  }
   function handleIssueChange(e: WechatMiniprogram.CustomEvent) {
     const { value } = e.detail;
     issue.value = value;
@@ -32,7 +47,7 @@ definePage(() => {
   const popupShow = ref(false);
 
   async function handleConvert() {
-    if (!issue.value || !answer.value) {
+    if (!issue.value && !answer.value) {
       wx.showToast({
         title: "请输入问题或回答",
         icon: "none",
@@ -99,5 +114,7 @@ definePage(() => {
     handleClear,
     handleCancel,
     handleSave,
+    handleIssuePaste,
+    handleAnswerPaste,
   };
 });
