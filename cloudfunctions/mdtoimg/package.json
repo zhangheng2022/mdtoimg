@@ -12,6 +12,7 @@
     "highlight.js": "^11.11.1",
     "markdown-it": "^14.1.0",
     "web-streams-polyfill": "^4.1.0",
-    "wx-server-sdk": "^3.0.1"
+    "wx-server-sdk": "^3.0.1",
+    "puppeteer": "^24.2.0"
   }
 }

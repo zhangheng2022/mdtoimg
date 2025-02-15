@@ -1,46 +1,55 @@
-<view class="p-2">
-  <view class="rounded-md relative">
-    <view class="absolute top-2 right-2 z-10">
-      <t-button size="small" variant="outline" bindtap="handleIssuePaste">黏贴</t-button>
+<view class="flex flex-col h-screen px-2">
+  <view class="flex-1">
+    <view class="flex items-center mb-4">
+      <image src="/assets/images/logo.png" class="w-12 h-12" />
+      <view class="flex flex-col ml-2">
+        <text class="text-base font-bold">轻Markdown</text>
+        <text class="text-sm text-gray-500">轻量级Markdown一键预览转换编辑工具</text>
+      </view>
     </view>
-    <t-textarea
-      value="{{issue}}"
-      t-class="h-40"
-      placeholder="请输入..."
-      bordered="{{true}}"
-      disableDefaultPadding="{{true}}"
-      bind:change="handleIssueChange"
-    />
-  </view>
-  <view class="rounded-md relative mt-2">
-    <view class="absolute top-2 right-2 z-10">
-      <t-button size="small" variant="outline" bindtap="handleAnswerPaste">黏贴</t-button>
+    <view class="rounded-md relative">
+      <view class="absolute top-2 right-2 z-10">
+        <t-button size="small" variant="outline" bindtap="handleIssuePaste">黏贴</t-button>
+      </view>
+      <t-textarea
+        value="{{issue}}"
+        t-class="h-40"
+        placeholder="请输入..."
+        bordered="{{true}}"
+        disableDefaultPadding="{{true}}"
+        bind:change="handleIssueChange"
+      />
     </view>
-    <t-textarea
-      value="{{answer}}"
-      t-class="h-80"
-      placeholder="请输入..."
-      bordered="{{true}}"
-      disableDefaultPadding="{{true}}"
-      bind:change="handleAnswerChange"
-    />
+    <view class="rounded-md relative mt-2">
+      <view class="absolute top-2 right-2 z-10">
+        <t-button size="small" variant="outline" bindtap="handleAnswerPaste">黏贴</t-button>
+      </view>
+      <t-textarea
+        value="{{answer}}"
+        t-class="h-80"
+        placeholder="请输入..."
+        bordered="{{true}}"
+        disableDefaultPadding="{{true}}"
+        bind:change="handleAnswerChange"
+      />
+    </view>
   </view>
-  <view class="grid grid-cols-2 gap-x-2 mt-2">
+  <view class="grid grid-cols-2 gap-x-2 mt-2" style="padding-bottom: env(safe-area-inset-bottom)">
     <t-button block size="large" bindtap="handleClear">清空内容</t-button>
-    <t-button block theme="primary" size="large" bindtap="handleConvert">转换为图片</t-button>
+    <t-button block theme="primary" size="large" bindtap="handleConvert">预览</t-button>
   </view>
 </view>
 <t-popup visible="{{popupShow}}" close-on-overlay-click placement="bottom">
   <view class="p-2">
     <view class="pb-2 flex justify-center">
-      <text class="text-base font-bold">图片预览</text>
+      <text class="text-base font-bold">预览</text>
     </view>
     <scroll-view scroll-y class="h-[60vh]">
-      <image class="w-full" mode="widthFix" src="{{imageUrl}}" />
+      <image class="w-full" mode="widthFix" src="{{imageUrl}}" bindtap="handleImagePreview" />
     </scroll-view>
     <view class="grid grid-cols-2 gap-x-2 mt-2">
       <t-button size="large" bindtap="handleCancel">取消</t-button>
-      <t-button theme="primary" size="large" bindtap="handleSave">保存图片到相册</t-button>
+      <t-button theme="primary" size="large" bindtap="handleSave">保存</t-button>
     </view>
   </view>
 </t-popup>

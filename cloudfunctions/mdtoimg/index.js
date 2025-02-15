@@ -4,7 +4,7 @@ const markdownIt = require("markdown-it");
 const puppeteer = require("puppeteer");
 const hljs = require("highlight.js");
 
-    // "puppeteer": "^24.2.0",
+// "puppeteer": "^24.2.0",
 
 global.ReadableStream = ReadableStream;
 
@@ -71,6 +71,16 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
     deviceScaleFactor: 1,
   });
 
+  // 加载本地字体文件
+  await page.addStyleTag({
+    content: `
+        @font-face {
+          font-family: "思源黑体";
+          src: url("/assets/fonts/思源黑体SourceHanSansCN-Medium.ttf") format("opentype");
+        }
+      `,
+  });
+
   const template = `
     <!doctype html>
     <html lang="en">
@@ -80,9 +90,8 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
         <title>Document</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/monokai-sublime.min.css">
         <style>
-          @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap");
           body {
-            font-family: "Noto Sans SC", serif;
+            font-family: "思源黑体", serif;
             padding: 10px;
             box-sizing: border-box;
             border: 1px solid #ccc;

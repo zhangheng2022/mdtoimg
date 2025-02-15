@@ -11,7 +11,6 @@ definePage(() => {
 
   const issue = ref("");
   const answer = ref("");
-  const imageUrl = ref("");
 
   function handleIssuePaste() {
     wx.getClipboardData({
@@ -41,10 +40,10 @@ definePage(() => {
   function handleClear() {
     issue.value = "";
     answer.value = "";
-    imageUrl.value = "";
   }
 
   const popupShow = ref(false);
+  const imageUrl = ref("");
 
   async function handleConvert() {
     if (!issue.value && !answer.value) {
@@ -56,7 +55,8 @@ definePage(() => {
       return;
     }
     wx.showLoading({
-      title: "转换中...",
+      title: "请稍候...",
+      mask: true,
     });
     const { result } = (await wx.cloud.callFunction({
       name: "mdtoimg",
@@ -79,23 +79,35 @@ definePage(() => {
     const { tempFilePath } = await wx.cloud.downloadFile({
       fileID: result.image,
     });
+    console.log("tempFilePath", tempFilePath);
     imageUrl.value = tempFilePath;
     popupShow.value = true;
   }
 
   async function handleSave() {
-    await wx.saveImageToPhotosAlbum({
-      filePath: imageUrl.value,
-    });
-    wx.showToast({
-      title: "保存成功",
-      icon: "success",
-      duration: 2000,
-    });
+    try {
+      await wx.saveImageToPhotosAlbum({
+        filePath: imageUrl.value,
+      });
+      wx.showToast({
+        title: "保存成功",
+        icon: "success",
+        duration: 2000,
+      });
+    } catch (error) {
+      wx.showToast({
+        title: "保存失败",
+        icon: "none",
+        duration: 2000,
+      });
+    }
   }
 
-  function popupChange(visible: boolean) {
-    popupShow.value = visible;
+  function handleImagePreview() {
+    wx.previewImage({
+      current: imageUrl.value,
+      urls: [imageUrl.value],
+    });
   }
 
   function handleCancel() {
@@ -108,7 +120,6 @@ definePage(() => {
     imageUrl,
     popupShow,
     handleConvert,
-    popupChange,
     handleIssueChange,
     handleAnswerChange,
     handleClear,
@@ -116,5 +127,6 @@ definePage(() => {
     handleSave,
     handleIssuePaste,
     handleAnswerPaste,
+    handleImagePreview,
   };
 });
