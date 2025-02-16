@@ -3,7 +3,9 @@
   "window": {
     "navigationBarTitleText": "mdtoimg",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "backgroundColorTop": "#ffffff",
+    "backgroundColorBottom": "#ffffff"
   },
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents",

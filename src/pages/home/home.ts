@@ -50,7 +50,6 @@ definePage(() => {
       wx.showToast({
         title: "请输入内容",
         icon: "none",
-        duration: 2000,
       });
       return;
     }
@@ -58,30 +57,31 @@ definePage(() => {
       title: "请稍候...",
       mask: true,
     });
-    const { result } = (await wx.cloud.callFunction({
-      name: "mdtoimg",
-      data: {
-        issueContent: issue.value,
-        answerContent: answer.value,
-      },
-    })) as unknown as { result: CloudFunctionResult };
-
-    if (!result || !result.image) {
-      wx.showToast({
-        title: "转换失败",
-        icon: "none",
-        duration: 2000,
+    try {
+      const { result } = (await wx.cloud.callFunction({
+        name: "mdtoimg",
+        data: {
+          issueContent: issue.value,
+          answerContent: answer.value,
+        },
+      })) as unknown as { result: CloudFunctionResult };
+      if (!result || !result.image) {
+        wx.showToast({
+          title: "转换失败",
+          icon: "none",
+        });
+        return;
+      }
+      const { tempFilePath } = await wx.cloud.downloadFile({
+        fileID: result.image,
       });
-      return;
+      console.log("tempFilePath", tempFilePath);
+      imageUrl.value = tempFilePath;
+      popupShow.value = true;
+      wx.hideLoading();
+    } catch (error) {
+      wx.hideLoading();
     }
-    const { tempFilePath } = await wx.cloud.downloadFile({
-      fileID: result.image,
-    });
-    console.log("tempFilePath", tempFilePath);
-
-    wx.hideLoading();
-    imageUrl.value = tempFilePath;
-    popupShow.value = true;
   }
 
   async function handleSave() {
@@ -92,13 +92,11 @@ definePage(() => {
       wx.showToast({
         title: "保存成功",
         icon: "success",
-        duration: 2000,
       });
     } catch (error) {
       wx.showToast({
         title: "保存失败",
         icon: "none",
-        duration: 2000,
       });
     }
   }

@@ -1,9 +1,9 @@
 {
   "navigationBarTitleText": "",
+  "disableScroll": true,
   "usingComponents": {
     "t-button": "tdesign-miniprogram/button/button",
     "t-textarea": "tdesign-miniprogram/textarea/textarea",
-    "t-popup": "tdesign-miniprogram/popup/popup",
-    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog"
+    "t-popup": "tdesign-miniprogram/popup/popup"
   }
 }

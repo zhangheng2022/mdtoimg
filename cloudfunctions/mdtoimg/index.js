@@ -75,12 +75,9 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
   const monokaiSublimeCss = fs.readFileSync(path.join(__dirname, "./assets/styles/monokai-sublime.min.css"), "utf8");
   // 加载本地字体文件
   const fontPath = path.join(__dirname, "./assets/fonts/思源黑体SourceHanSansCN-Medium.ttf");
-  console.log("Font path:", fontPath); // 打印字体文件路径
 
   try {
     const fontBase64 = fs.readFileSync(fontPath, { encoding: "base64" });
-    console.log("Font loaded successfully"); // 确认字体文件已成功读取
-
     await page.addStyleTag({
       content: `
           @font-face {
