@@ -47,14 +47,14 @@
     "postcss-load-config": "^6.0.1",
     "postcss-pxtorpx-pro": "^2.0.0",
     "prettier": "^3.5.1",
-    "rollup": "^4.34.7",
+    "rollup": "^4.34.8",
     "stylelint": "^16.14.1",
     "stylelint-config-standard": "^37.0.0",
     "tailwindcss": "^3.4.17",
     "terser": "^5.39.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.0",
-    "weapp-tailwindcss": "^4.0.0"
+    "typescript-eslint": "^8.24.1",
+    "weapp-tailwindcss": "^4.0.1"
   },
   "browserslist": [
     "iOS >= 10",
