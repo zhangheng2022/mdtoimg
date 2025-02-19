@@ -4,6 +4,7 @@ interface CloudFunctionResult {
   code: number;
   message: string;
   image?: string;
+  data?:any
 }
 
 definePage(() => {
@@ -140,6 +141,20 @@ definePage(() => {
     popupShow.value = false;
   }
 
+  const issuePlaceholder = ref("123");
+  const answerPlaceholder = ref("123");
+
+  async function initPlaceholder() {
+    const { result } = (await wx.cloud.callFunction({
+      name: "input-placeholder",
+    })) as unknown as { result: CloudFunctionResult };
+    issuePlaceholder.value = result.data.issuePlaceholder;
+    answerPlaceholder.value = result.data.answerPlaceholder;
+    console.log("issuePlaceholder", issuePlaceholder.value);
+    console.log("answerPlaceholder", answerPlaceholder.value);
+  }
+  initPlaceholder();
+
   return {
     issue,
     answer,
@@ -155,6 +170,9 @@ definePage(() => {
     handleAnswerPaste,
     handleImagePreview,
     handleShare,
+    issuePlaceholder,
+    answerPlaceholder,
+    initPlaceholder,
   };
 }, {
   canShareToOthers: true, // 默认为 false

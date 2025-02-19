@@ -14,7 +14,7 @@
       <t-textarea
         value="{{issue}}"
         t-class="h-40"
-        placeholder="在此粘贴内容..."
+        placeholder="{{issuePlaceholder}}"
         bordered="{{true}}"
         disableDefaultPadding="{{true}}"
         bind:change="handleIssueChange"
@@ -27,7 +27,7 @@
       <t-textarea
         value="{{answer}}"
         t-class="h-80"
-        placeholder="在此粘贴内容..."
+        placeholder="{{answerPlaceholder}}"
         bordered="{{true}}"
         disableDefaultPadding="{{true}}"
         bind:change="handleAnswerChange"
