@@ -7,7 +7,7 @@
 
 ## 项目简介
 
-一个微信小程序，用于将Markdown对话转换为图片。主要功能是：
+一个微信小程序，用于将Markdown（AI对话）对话转换为图片。主要功能是：
 
 - 将Markdown对话转换为图片
 - 支持图片保存到相册
@@ -17,5 +17,5 @@
 ## 访问地址
 
 <div align="center">
-  <img src="./src/assets/images/qrcode.png" alt="轻Markdown-AI对话转图片" width="200" />
+  <img src="./src/assets/images/qrcode.jpg" alt="轻Markdown-AI对话转图片" width="200" />
 </div>
