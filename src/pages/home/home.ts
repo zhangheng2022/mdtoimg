@@ -150,8 +150,6 @@ definePage(() => {
     })) as unknown as { result: CloudFunctionResult };
     issuePlaceholder.value = result.data.issuePlaceholder;
     answerPlaceholder.value = result.data.answerPlaceholder;
-    console.log("issuePlaceholder", issuePlaceholder.value);
-    console.log("answerPlaceholder", answerPlaceholder.value);
   }
   initPlaceholder();
 
