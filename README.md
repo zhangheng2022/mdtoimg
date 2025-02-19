@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="./assets/logos/logo.png" alt="轻Markdown-AI对话转图片" width="128" />
+  <img src="./src/assets/images/logo.png" alt="轻Markdown-AI对话转图片" width="128" />
   <br>
   轻Markdown-AI对话转图片
   <br>
@@ -11,12 +11,11 @@
 
 - 将Markdown对话转换为图片
 - 支持图片保存到相册
-- 支持图片分享到微信
 - 支持图片预览
 - 支持图片下载
 
 ## 访问地址
 
 <div align="center">
-  <img src="./assets/images/qrcode.png" alt="轻Markdown-AI对话转图片" width="200" />
+  <img src="./src/assets/images/qrcode.png" alt="轻Markdown-AI对话转图片" width="200" />
 </div>
