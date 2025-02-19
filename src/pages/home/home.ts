@@ -67,7 +67,7 @@ definePage(() => {
       })) as unknown as { result: CloudFunctionResult };
       if (!result || !result.image) {
         wx.showToast({
-          title: "转换失败",
+          title: "转换失败，请稍候重试",
           icon: "none",
         });
         return;
