@@ -1,13 +1,10 @@
 const cloud = require("wx-server-sdk");
-const { ReadableStream } = require("web-streams-polyfill");
 const markdownIt = require("markdown-it");
 const puppeteer = require("puppeteer");
 const hljs = require("highlight.js");
 const fs = require("fs");
 const path = require("path");
 // "puppeteer": "^24.2.0",
-
-global.ReadableStream = ReadableStream;
 
 cloud.init();
 
@@ -62,7 +59,14 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
   // 启动浏览器
   const browser = await puppeteer.launch({
     headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: [
+      "--disable-gpu", // 禁用 GPU
+      "--disable-dev-shm-usage", // 禁用共享内存
+      "--no-sandbox", // 禁用沙箱
+      "--disable-setuid-sandbox", // 禁用 setuid 沙箱
+      "--disable-accelerated-2d-canvas", // 禁用 2D 画布加速
+      "--disable-background-timer-throttling", // 禁用后台计时器限制
+    ],
   });
   const page = await browser.newPage();
 
@@ -72,33 +76,15 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
     deviceScaleFactor: 1,
   });
 
+  // 加载monokai-sublime.min.css
   const monokaiSublimeCss = fs.readFileSync(path.join(__dirname, "./assets/styles/monokai-sublime.min.css"), "utf8");
   // 加载本地字体文件
-  const fontPath = path.join(__dirname, "./assets/fonts/思源黑体SourceHanSansCN-Medium.ttf");
-
-  try {
-    const fontBase64 = fs.readFileSync(fontPath, { encoding: "base64" });
-    await page.addStyleTag({
-      content: `
-          @font-face {
-            font-family: "思源黑体";
-            src: url(data:font/ttf;base64,${fontBase64}) format("truetype");
-            font-display: block;
-          }
-          * {
-            font-family: "思源黑体" !important;
-          }
-        `,
-    });
-
-    // 等待字体加载完成并验证
-    await page.evaluate(async () => {
-      await document.fonts.ready;
-      console.log("Fonts loaded in browser:", [...document.fonts].map((f) => f.family).join(", "));
-    });
-  } catch (error) {
-    console.error("Font loading error:", error);
-  }
+  const fontBase64 = fs.readFileSync(path.join(__dirname, "./assets/fonts/思源黑体SourceHanSansCN-Medium.ttf"), {
+    encoding: "base64",
+  });
+  const logoBase64 = fs.readFileSync(path.join(__dirname, "./assets/images/weixin_search.png"), {
+    encoding: "base64",
+  });
 
   const template = `
     <!doctype html>
@@ -109,21 +95,26 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
         <title>Document</title>
         <style>
           ${monokaiSublimeCss}
+          @font-face {
+            font-family: "思源黑体";
+            src: url(data:font/ttf;base64,${fontBase64}) format("truetype");
+            font-display: block;
+          }
+          * {
+            font-family: "思源黑体" !important;
+          }
           body {
             padding: 10px;
             box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            border: 5px solid #0052d9;
+            border-radius: 20px;
           }
           .issue {
             width: 100%;
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
+            justify-content: center;
           }
           .issue .content {
-            border: 1px solid #ccc;
-            border-radius: 10px;
             padding: 0 10px;
             box-sizing: border-box;
           }
@@ -134,17 +125,38 @@ async function htmlToImage(htmlIssueContent, htmlAnswerContent) {
           }
           .answer .content {
             width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 10px;
             padding: 0 10px;
             box-sizing: border-box;
+          }
+          .divider {
+            width: 100%;
+            height: 5px;
+            background-color: #0052d9;
+            margin: 20px 0;
+          }
+          .title {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+            box-sizing: border-box;
+          }
+          .title .logo {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
           }
         </style>
       </head>
       <body>
+        <div class="title">
+          <img src="data:image/png;base64,${logoBase64}"  class="logo" alt="logo" />
+        </div>
         <div class="issue">
           <div class="content">${htmlIssueContent}</div>
         </div>
+        <div class="divider"></div>
         <div class="answer">
           <div class="content">${htmlAnswerContent}</div>
         </div>

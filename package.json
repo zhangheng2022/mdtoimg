@@ -54,7 +54,7 @@
     "terser": "^5.39.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1",
-    "weapp-tailwindcss": "^4.0.1"
+    "weapp-tailwindcss": "^4.0.2"
   },
   "browserslist": [
     "iOS >= 10",
