@@ -1,4 +1,4 @@
-import { definePage, ref } from "@vue-mini/core";
+import { definePage, onShareAppMessage, ref } from "@vue-mini/core";
 
 interface CloudFunctionResult {
   code: number;
@@ -8,6 +8,14 @@ interface CloudFunctionResult {
 
 definePage(() => {
   wx.cloud.init();
+
+  onShareAppMessage(() => {
+    return {
+      title: "轻Markdown-AI对话转图片",
+      path: "pages/home/home",
+      imageUrl: "../../assets/images/logo.png",
+    };
+  });
 
   const issue = ref("");
   const answer = ref("");
@@ -127,4 +135,6 @@ definePage(() => {
     handleAnswerPaste,
     handleImagePreview,
   };
+}, {
+  canShareToOthers: true, // 默认为 false
 });
