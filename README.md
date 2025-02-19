@@ -1,47 +1,22 @@
-# mdtoimg
+<h1 align="center">
+  <img src="./assets/logos/logo.png" alt="轻Markdown-AI对话转图片" width="128" />
+  <br>
+  轻Markdown-AI对话转图片
+  <br>
+</h1>
 
-⚠️ 注意：将此项目导入微信开发者工具时请选择项目根目录而非 `dist` 目录。
+## 项目简介
 
-更多信息请访问官方文档：[vuemini.org](https://vuemini.org)
+一个微信小程序，用于将Markdown对话转换为图片。主要功能是：
 
-## 依赖安装
+- 将Markdown对话转换为图片
+- 支持图片保存到相册
+- 支持图片分享到微信
+- 支持图片预览
+- 支持图片下载
 
-```sh
-npm install
-```
+## 访问地址
 
-## 本地开发
-
-```sh
-npm run dev
-```
-
-## 生产构建
-
-```sh
-npm run build
-```
-
-## 代码格式化
-
-```sh
-npm run format
-```
-
-## TS 代码质量检测
-
-```sh
-npm run lint:script
-```
-
-## CSS 代码质量检测
-
-```sh
-npm run lint:style
-```
-
-## 类型检测
-
-```sh
-npm run type-check
-```
+<div align="center">
+  <img src="./assets/images/qrcode.png" alt="轻Markdown-AI对话转图片" width="200" />
+</div>
