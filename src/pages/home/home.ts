@@ -109,6 +109,26 @@ definePage(() => {
     }
   }
 
+  function handleShare() {
+    wx.showShareImageMenu({
+      path: imageUrl.value,
+      success: (res) => {
+        console.log("share success", res);
+        wx.showToast({
+          title: "分享成功",
+          icon: "success",
+        });
+      },
+      fail: (err) => {
+        console.log("share fail", err);
+        wx.showToast({
+          title: "分享失败",
+          icon: "none",
+        });
+      },
+    });
+  }
+
   function handleImagePreview() {
     wx.previewImage({
       current: imageUrl.value,
@@ -134,6 +154,7 @@ definePage(() => {
     handleIssuePaste,
     handleAnswerPaste,
     handleImagePreview,
+    handleShare,
   };
 }, {
   canShareToOthers: true, // 默认为 false

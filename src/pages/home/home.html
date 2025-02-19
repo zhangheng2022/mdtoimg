@@ -34,9 +34,7 @@
       />
     </view>
     <view class="flex justify-center mt-2">
-      <t-button open-type="contact" theme="danger" icon="help-circle" variant="text" size="small"
-        >反馈问题</t-button
-      >
+      <t-button open-type="contact" theme="danger" icon="help-circle" variant="text" size="small">反馈问题</t-button>
     </view>
   </view>
   <view class="grid grid-cols-2 gap-x-2 mt-2" style="padding-bottom: env(safe-area-inset-bottom)">
@@ -52,8 +50,9 @@
     <scroll-view enable-passive scroll-y class="h-[65vh]">
       <image class="w-full" mode="widthFix" src="{{imageUrl}}" bindtap="handleImagePreview" />
     </scroll-view>
-    <view class="grid grid-cols-2 gap-x-2 mt-2">
-      <t-button size="large" bindtap="handleCancel">取消</t-button>
+    <view class="grid grid-cols-3 gap-x-2 mt-2">
+      <t-button theme="danger" variant="outline" size="large" bindtap="handleCancel">取消</t-button>
+      <t-button theme="light" size="large" bindtap="handleShare">分享好友</t-button>
       <t-button theme="primary" size="large" bindtap="handleSave">保存</t-button>
     </view>
   </view>
