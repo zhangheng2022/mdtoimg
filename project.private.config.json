@@ -4,7 +4,7 @@
   "appid": "wxb74ad6b81fd82915",
   "setting": {
     "compileHotReLoad": true,
-    "skylineRenderEnable": true
+    "skylineRenderEnable": false
   },
   "libVersion": "development",
   "cloudfunctionRoot": "cloudfunctions/"
