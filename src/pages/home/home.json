@@ -4,6 +4,7 @@
   "usingComponents": {
     "t-button": "tdesign-miniprogram/button/button",
     "t-textarea": "tdesign-miniprogram/textarea/textarea",
-    "t-popup": "tdesign-miniprogram/popup/popup"
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "t-icon": "tdesign-miniprogram/icon/icon"
   }
 }
