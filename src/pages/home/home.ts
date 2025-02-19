@@ -141,8 +141,8 @@ definePage(() => {
     popupShow.value = false;
   }
 
-  const issuePlaceholder = ref("123");
-  const answerPlaceholder = ref("123");
+  const issuePlaceholder = ref("");
+  const answerPlaceholder = ref("");
 
   async function initPlaceholder() {
     const { result } = (await wx.cloud.callFunction({
