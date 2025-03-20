@@ -1,0 +1,18 @@
+<view class="min-h-screen bg-gray-100">
+  <t-collapse value="{{activeCollapse}}" bind:change="collapseChange">
+    <t-collapse-panel header="加密" value="encrypt" expandIcon>
+      <t-grid hover column="{{4}}">
+        <t-grid-item text="UUIDs生成器" image="https://api.iconify.design/ic:baseline-fingerprint.svg?color=%238b8b8b"
+          url="/pages-encrypt/uuid/uuid" />
+        <t-grid-item t-class-image="image" text="标题文字"
+          image="https://api.iconify.design/ic:baseline-fingerprint.svg?color=%238b8b8b" />
+        <t-grid-item t-class-image="image" text="标题文字"
+          image="https://api.iconify.design/ic:baseline-fingerprint.svg?color=%238b8b8b" />
+        <t-grid-item t-class-image="image" text="标题文字"
+          image="https://api.iconify.design/ic:baseline-fingerprint.svg?color=%238b8b8b" />
+        <t-grid-item t-class-image="image" text="最多四字"
+          image="https://api.iconify.design/ic:baseline-fingerprint.svg?color=%238b8b8b" />
+      </t-grid>
+    </t-collapse-panel>
+  </t-collapse>
+</view>

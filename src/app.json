@@ -1,5 +1,5 @@
 {
-  "pages": ["pages/home/home"],
+  "pages": ["pages/home/home", "pages/other/other"],
   "window": {
     "navigationBarTitleText": "轻Markdown",
     "navigationBarBackgroundColor": "#ffffff",
@@ -7,6 +7,32 @@
     "backgroundColorTop": "#ffffff",
     "backgroundColorBottom": "#ffffff"
   },
+  "tabBar": {
+    "color": "#8b8b8b",
+    "selectedColor": "#0052d9",
+    "borderStyle": "white",
+    "list": [
+      {
+        "text": "轻Markdown",
+        "pagePath": "pages/home/home",
+        "iconPath": "assets/tabbar/home.png",
+        "selectedIconPath": "assets/tabbar/home_select.png"
+      },
+      {
+        "text": "IT工具箱",
+        "pagePath": "pages/other/other",
+        "iconPath": "assets/tabbar/other.png",
+        "selectedIconPath": "assets/tabbar/other_select.png"
+      }
+    ]
+  },
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+
+  "subPackages": [
+    {
+      "root": "pages-encrypt",
+      "pages": ["uuid/uuid"]
+    }
+  ]
 }
