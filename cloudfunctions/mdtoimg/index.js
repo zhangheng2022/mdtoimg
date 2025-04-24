@@ -6,10 +6,15 @@ const fs = require("fs");
 const path = require("path");
 // "puppeteer": "^24.2.0",
 
-cloud.init();
+cloud.init({
+  env: 'cloud1-6g0wfkmc630b05ea'
+});
 
 exports.main = async (event, context) => {
-  const { issueContent, answerContent } = event;
+  const {
+    issueContent,
+    answerContent
+  } = event;
   try {
     const md = markdownIt({
       // 启用代码块高亮
@@ -36,6 +41,7 @@ exports.main = async (event, context) => {
     const htmlIssueContent = md.render(issueContent);
     const htmlAnswerContent = md.render(answerContent);
     const buffer = await htmlToImage(htmlIssueContent, htmlAnswerContent);
+    console.log(buffer);
     const result = await cloud.uploadFile({
       cloudPath: `screenshot/${Date.now()}.png`,
       fileContent: Buffer.from(buffer),
@@ -47,7 +53,7 @@ exports.main = async (event, context) => {
       message: "转换成功",
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return {
       code: 1,
       message: "转换失败",
